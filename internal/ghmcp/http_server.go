@@ -95,12 +95,15 @@ func RunHTTPServer(cfg HTTPServerConfig) error {
 	if logFile != nil {
 		defer func() { _ = logFile.Close() }()
 	}
-	httpServer := &http.Server{Addr: listenAddress}
+	httpServer := &http.Server{
+		Addr:              listenAddress,
+		ReadHeaderTimeout: 10 * time.Second,
+	}
 
 	streamServer := server.NewStreamableHTTPServer(
 		ghServer,
 		server.WithStreamableHTTPServer(httpServer),
-		server.WithHTTPContextFunc(func(ctx context.Context, r *http.Request) context.Context {
+		server.WithHTTPContextFunc(func(ctx context.Context, _ *http.Request) context.Context {
 			return pkgErrors.ContextWithGitHubErrors(ctx)
 		}),
 	)

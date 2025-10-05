@@ -1,6 +1,7 @@
 package ghmcp
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -37,7 +38,7 @@ func TestTokenMiddlewareRejectsInvalidAuthorization(t *testing.T) {
 
 	for name, header := range cases {
 		t.Run(name, func(t *testing.T) {
-			handler := tokenMiddleware(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			handler := tokenMiddleware(http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {
 				t.Fatalf("handler should not be called")
 			}))
 
@@ -54,11 +55,11 @@ func TestTokenMiddlewareRejectsInvalidAuthorization(t *testing.T) {
 }
 
 func TestTokenContextHelpers(t *testing.T) {
-	ctx := ContextWithToken(nil, "  token-value  ")
+	ctx := ContextWithToken(context.TODO(), "  token-value  ")
 	token, err := TokenFromContext(ctx)
 	require.NoError(t, err)
 	require.Equal(t, "token-value", token)
 
-	_, err = TokenFromContext(nil)
+	_, err = TokenFromContext(context.TODO())
 	require.Error(t, err)
 }
