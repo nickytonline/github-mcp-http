@@ -92,14 +92,28 @@ routes:
         token_url: https://github.com/login/oauth/access_token
 ```
 
-### Docker Compose
+### Docker
+
+The MCP server is available on [Docker Hub](https://hub.docker.com/r/nickytonline/github-mcp-http) and [GitHub Container Registry](https://github.com/nickytonline/github-mcp-server/pkgs/container/github-mcp-server):
+
+```bash
+docker pull nickytonline/github-mcp-http:1
+# Or from GitHub Container Registry:
+# docker pull ghcr.io/nickytonline/github-mcp-server:1
+```
+
+#### Docker Compose
 
 ```yaml
 services:
   github-mcp:
-    build:
-      context: https://github.com/nickytonline/github-mcp-http.git
-      dockerfile: Dockerfile
+    image: nickytonline/github-mcp-http:1
+    # Or from GitHub Container Registry:
+    # image: ghcr.io/nickytonline/github-mcp-server:1
+    # Or build from source:
+    # build:
+    #   context: https://github.com/nickytonline/github-mcp-http.git
+    #   dockerfile: Dockerfile
     pull_policy: always
     container_name: github-mcp
     restart: unless-stopped
