@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/github/github-mcp-server/internal/ghmcp"
-	"github.com/github/github-mcp-server/pkg/github"
+	"github.com/github/github-mcp-http/internal/ghmcp"
+	"github.com/github/github-mcp-http/pkg/github"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -31,7 +31,7 @@ var (
 		Short:  "Start stdio server",
 		Hidden: true,
 		RunE: func(_ *cobra.Command, _ []string) error {
-			return fmt.Errorf("stdio transport has been removed; run `github-mcp-server http` behind your OAuth proxy")
+			return fmt.Errorf("stdio transport has been removed; run `github-mcp-http http` behind your OAuth proxy")
 		},
 	}
 

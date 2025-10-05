@@ -8,6 +8,23 @@
     "properties": {
       "fields": {
         "description": "A list of field updates to apply.",
+        "items": {
+          "additionalProperties": false,
+          "properties": {
+            "field_id": {
+              "description": "The ID of the field to update",
+              "type": "string"
+            },
+            "value": {
+              "description": "The value to set for the field"
+            }
+          },
+          "required": [
+            "field_id",
+            "value"
+          ],
+          "type": "object"
+        },
         "type": "array"
       },
       "item_id": {
